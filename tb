@@ -1,0 +1,21 @@
+`timescale 1ns/1ps
+module tb_gray_counter;
+
+reg clk, reset;
+wire [3:0] gray;
+
+gray_counter uut (.clk(clk), .reset(reset), .gray(gray));
+
+initial begin
+    $dumpfile("gray.vcd");
+    $dumpvars(0, tb_gray_counter);
+
+    clk = 0; reset = 1; #10;
+    reset = 0;
+
+    #200 $finish;
+end
+
+always #5 clk = ~clk;
+
+endmodule
